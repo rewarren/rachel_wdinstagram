@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # get “route” =>(want to go to) “this controller#with this action”
-  get "/" => "#index"
+  get "entries" => "#index"
   get "entries/new" => "entries#new"
   post "entries" => "entries#create"
   get "entries/:id" => "entries#show"
