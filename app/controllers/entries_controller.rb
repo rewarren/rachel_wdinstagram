@@ -1,47 +1,43 @@
 # index
-get "/" do
+def index
   @entries = Entry.all.order(:id).reverse
-  erb :index
 end
 
 # new
-get "/entries/new" do
+def new
   @entry = Entry.new
-  erb :new
 end
 
 # create
-post "/entries" do
+def create
   @entry = Entry.new( params[:entry] )
   @entry.update( date_taken: Time.now.strftime("%B %d, %Y") )
   if @entry.save
-    redirect "/entries/#{@entry.id}"
+    redirect_to "/entries/#{@entry.id}"
   else
-    redirect "/entries/new"
+    redirect_to "/entries/new"
   end
 end
 
 # edit
-get "/entries/:id/edit" do
+def edit
   @entry = Entry.find( params[:id] )
-  erb :edit
 end
 
 # update
-put "/entries/:id" do
+def update
   @entry = Entry.find( params[:id] )
   @entry.update( params[:entry] )
-  redirect "/entries/#{@entry.id}"
+  redirect_to "/entries/#{@entry.id}"
 end
 
 # show
-get "/entries/:id" do
+def show
   @entry = Entry.find( params[:id] )
-  erb :show
 end
 
 # delete
-delete "/entries/:id" do
+def delete
   @entry = Entry.find( params[:id] )
   @entry.destroy
   redirect "/"
